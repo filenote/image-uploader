@@ -18,4 +18,4 @@ app.use((req, res, next) => {
 
 app.use("/api/image", require('./routes/api/image'))
 
-app.listen(process.env.SERVER_PORT, () => `Server has been started on ${process.env.SERVER_PORT}`)
+app.listen(process.env.SERVER_PORT, () => console.log(`Server has been started on ${process.env.SERVER_PORT}`))
