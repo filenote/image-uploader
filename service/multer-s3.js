@@ -1,3 +1,11 @@
+const rxjs_1 = require("rxjs");
+const operators_1 = require("rxjs/operators");
+const sharp = require("sharp");
+const mime_types_1 = require("mime-types");
+const get_sharp_options_1 = require("./get-sharp-options");
+const transformer_1 = require("./transformer");
+const get_filename_1 = require("./get-filename");
+
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -11,13 +19,7 @@ const extensions = {
     'jpeg': 'jpg',
     'png': 'png'
 }
-const rxjs_1 = require("rxjs");
-const operators_1 = require("rxjs/operators");
-const sharp = require("sharp");
-const mime_types_1 = require("mime-types");
-const get_sharp_options_1 = require("./get-sharp-options");
-const transformer_1 = require("./transformer");
-const get_filename_1 = require("./get-filename");
+
 class S3Storage {
     constructor(options) {
         if (!options.s3) {
