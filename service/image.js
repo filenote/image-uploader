@@ -16,6 +16,7 @@ const storage = s3Storage({
     cb(null, `images/${Date.now().toString()}`);
   },
   s3,
+  ACL: 'public-read',
   Bucket: 'genrs-us-east-storage',
   multiple: true,
   resize: [

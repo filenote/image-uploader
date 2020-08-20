@@ -20,7 +20,6 @@ router.post("", (req, res) => {
         var ret = {
           urls: {}
         }
-        console.log(req.file)
         Object.keys(req.file).forEach(key => {
           if (!R.isNil(req.file[key].Location)) {
             if (key === 'original') {

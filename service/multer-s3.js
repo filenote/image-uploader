@@ -52,12 +52,27 @@ class S3Storage {
             Body: stream,
             Key: opts.Key,
         };
+
+        const metaReader = sharp()
+        metaReader
+            .metadata()
+            .then(info => {
+                let { width } = info;
+                return width;
+            })
+
+
+        let value = await stream.pipe(metaReader)
+            .on('finish', () => console.log('hello'));
+
         if (typeof opts.Key === 'function') {
             opts.Key(req, file, (fileErr, Key) => {
                 if (fileErr) {
                     cb(fileErr);
                     return;
+                
                 }
+
                 params.Key = Key;
                 if (mimetype.includes('image')) {
                     this._uploadProcess(params, file, cb);
@@ -85,8 +100,7 @@ class S3Storage {
         const { ACL, ContentDisposition, ContentType: optsContentType, StorageClass, ServerSideEncryption, Metadata, } = opts;
         if (opts.multiple && Array.isArray(opts.resize) && opts.resize.length > 0) {
             const sizes = rxjs_1.from(opts.resize);
-            sizes
-                .pipe(operators_1.map((size) => {
+            sizes.pipe(operators_1.map((size) => {
                 const resizerStream = transformer_1.default(sharpOpts, size);
                 if (size.suffix === 'original') {
                     size.Body = stream.pipe(sharp());
